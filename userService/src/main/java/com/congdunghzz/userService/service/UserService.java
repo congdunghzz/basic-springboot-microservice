@@ -3,6 +3,7 @@ package com.congdunghzz.userService.service;
 import com.congdunghzz.userService.Mapper.UserMapper;
 import com.congdunghzz.userService.dto.UserRequest;
 import com.congdunghzz.userService.dto.UserResponse;
+import com.congdunghzz.userService.enums.Gender;
 import com.congdunghzz.userService.exceptionHandler.NotFoundException;
 import com.congdunghzz.userService.model.User;
 import com.congdunghzz.userService.repository.UserRepository;
@@ -40,12 +41,13 @@ public class UserService {
 
             throw new NotFoundException("Please fill all the fields");
         }
+        Gender gender = Gender.valueOf(request.gender().toUpperCase());
         User user = User
                 .builder()
                 .name(request.name())
                 .email(request.email())
                 .password(request.password())
-                .gender(request.gender())
+                .gender(gender)
                 .dob(request.dob())
                 .departmentId(request.departmentId())
                 .build();

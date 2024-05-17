@@ -2,6 +2,7 @@ package com.congdunghzz.departmentSevice.service;
 
 import com.congdunghzz.departmentSevice.dto.DepartmentRequest;
 import com.congdunghzz.departmentSevice.dto.DepartmentResponse;
+import com.congdunghzz.departmentSevice.dto.user.User;
 import com.congdunghzz.departmentSevice.exceptionHandler.NotFoundException;
 import com.congdunghzz.departmentSevice.mapper.DepartmentMapper;
 import com.congdunghzz.departmentSevice.model.Department;
@@ -43,5 +44,7 @@ public class DepartmentService {
         return departmentMapper.convertToDepartmentResponse(departmentRepository.save(department));
     }
 
-
+    public List<User> getAllUSerOfDepartment(int departmentId){
+        return null;
+    }
 }

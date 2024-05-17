@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public record UserRequest(
          String name,
-         Gender gender,
+         String gender,
          LocalDate dob,
          String email,
          String password,

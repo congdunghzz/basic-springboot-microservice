@@ -1,10 +1,9 @@
-package com.congdunghzz.userService.dto;
+package com.congdunghzz.departmentSevice.dto.user;
 
-import com.congdunghzz.userService.enums.Gender;
 
 import java.time.LocalDate;
 
-public record UserResponse (
+public record User (
         int id,
         String name,
         String gender,
