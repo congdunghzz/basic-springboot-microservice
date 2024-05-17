@@ -5,9 +5,11 @@ import com.congdunghzz.userService.enums.Gender;
 import java.time.LocalDate;
 
 public record UserResponse (
+        int id,
         String name,
         Gender gender,
         LocalDate dob,
-        String email
+        String email,
+        int departmentId
 ) {
 }

@@ -10,9 +10,10 @@
   <packaging>pom</packaging>
 
   <name>microservicelearning</name>
-  <url>http://www.example.com</url>
+
   <modules>
     <module>userService</module>
+    <module>departmentService</module>
   </modules>
 
   <properties>

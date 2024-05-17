@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserMapper {
     public UserResponse convertToUserResponse (User user){
-        return new UserResponse(user.getName(), user.getGender(), user.getDob(), user.getEmail());
+        return new UserResponse(user.getId(), user.getName(), user.getGender(), user.getDob(), user.getEmail(), user.getDepartmentId());
     }
 }

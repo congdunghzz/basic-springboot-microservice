@@ -35,7 +35,9 @@ public class UserService {
                 || request.gender() == null
                 || request.dob()==null
                 || request.email() == null
-                || request.password() == null){
+                || request.password() == null
+                || request.departmentId() == 0){
+
             throw new NotFoundException("Please fill all the fields");
         }
         User user = User
@@ -45,6 +47,7 @@ public class UserService {
                 .password(request.password())
                 .gender(request.gender())
                 .dob(request.dob())
+                .departmentId(request.departmentId())
                 .build();
         return userMapper.convertToUserResponse(userRepository.save(user));
     }

@@ -24,4 +24,5 @@ public class User {
     private LocalDate dob;
     private String email;
     private String password;
+    private Integer departmentId;
 }
