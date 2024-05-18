@@ -1,4 +1,4 @@
-package com.congdunghzz.departmentSevice.dto;
+package com.congdunghzz.userService.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

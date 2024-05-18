@@ -1,15 +1,22 @@
 package com.congdunghzz.userService.dto;
 
 import com.congdunghzz.userService.enums.Gender;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-public record UserResponse (
-        int id,
-        String name,
-        String gender,
-        LocalDate dob,
-        String email,
-        int departmentId
-) {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class UserResponse {
+    private int id;
+    private String name;
+    private String gender;
+    private LocalDate dob;
+    private String email;
+    private DepartmentResponse department;
 }

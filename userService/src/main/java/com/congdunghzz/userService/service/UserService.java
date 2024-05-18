@@ -1,10 +1,12 @@
 package com.congdunghzz.userService.service;
 
 import com.congdunghzz.userService.Mapper.UserMapper;
+import com.congdunghzz.userService.dto.DepartmentResponse;
 import com.congdunghzz.userService.dto.UserRequest;
 import com.congdunghzz.userService.dto.UserResponse;
 import com.congdunghzz.userService.enums.Gender;
 import com.congdunghzz.userService.exceptionHandler.NotFoundException;
+import com.congdunghzz.userService.feignClient.DepartmentClient;
 import com.congdunghzz.userService.model.User;
 import com.congdunghzz.userService.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final DepartmentClient departmentClient;
     public List<UserResponse> getALlUsers(){
         List<User> userList = userRepository.findAll();
         return userList.stream().map(userMapper::convertToUserResponse).toList();
@@ -28,7 +31,10 @@ public class UserService {
         if (user.isEmpty()){
             throw new NotFoundException("user with id: " + id + " is not found");
         }
-        return userMapper.convertToUserResponse(user.get());
+        UserResponse response = userMapper.convertToUserResponse(user.get());
+        DepartmentResponse departmentResponse = departmentClient.getDepartmentById(user.get().getDepartmentId());
+        response.setDepartment(departmentResponse);
+        return response;
     }
 
     public UserResponse register(UserRequest request){
