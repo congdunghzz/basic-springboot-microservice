@@ -10,9 +10,36 @@ services:
       MYSQL_URL: jdbc:mysql://userdb:3306/microservice-user
       MYSQL_USERNAME: root
       MYSQL_PASSWORD: 123
-      EUREKA_URL:
+      EUREKA_URL: http://eurekaServer:8761/eureka
     depends_on:
       - userdb
+      - eurekaServer
+
+  departmentService:
+    image: eclipse-temurin:17-jdk-alpine
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      MYSQL_URL: jdbc:mysql://departmentdb:3306/microservice-department
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: 123
+      EUREKA_URL: http://eurekaServer:8761/eureka
+    depends_on:
+      - departmentdb
+      - eurekaServer
+    volumes:
+      - ./departmentService/target/departmentService-1.0-SNAPSHOT.jar:/app/app.jar
+    entrypoint: ["java", "-jar", "/app/app.jar"]
+
+  eurekaServer:
+    image: eclipse-temurin:17-jdk-alpine
+    restart: always
+    ports:
+      - 8761:8761
+    volumes:
+      - ./EurekaServer/target/EurekaServer-1.0-SNAPSHOT.jar:/app/app.jar
+    entrypoint: ["java", "-jar", "/app/app.jar"]
 
   userdb:
     image: mysql:8.0
@@ -23,5 +50,17 @@ services:
     volumes:
       - mysql-user-data:/var/lib/mysql
 
+
+
+  departmentdb:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: microservice-department
+    volumes:
+      - mysql-department-data:/var/lib/mysql
+
 volumes:
   mysql-user-data:
+  mysql-department-data:
