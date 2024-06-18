@@ -22,9 +22,9 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentResponseList);
     }
 
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "/{id}")
     ResponseEntity<DepartmentResponse> getById(@PathVariable(value = "id") Integer id){
-        System.out.println("DEpartment serive: " + id);
+
         return ResponseEntity.status(HttpStatus.OK).body(departmentService.getById(id));
     }
 

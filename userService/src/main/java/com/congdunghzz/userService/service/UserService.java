@@ -10,6 +10,10 @@ import com.congdunghzz.userService.feignClient.DepartmentClient;
 import com.congdunghzz.userService.model.User;
 import com.congdunghzz.userService.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,22 +25,29 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final DepartmentClient departmentClient;
+    @Cacheable(cacheNames = "userList")
     public List<UserResponse> getALlUsers(){
+        System.out.println("there is no data in cache memory");
         List<User> userList = userRepository.findAll();
         return userList.stream().map(userMapper::convertToUserResponse).toList();
     }
 
+    @Cacheable(cacheNames = "user", key = "#id")
     public UserResponse getUserById(int id){
+        System.out.println("there is no data in cache memory");
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()){
             throw new NotFoundException("user with id: " + id + " is not found");
         }
         UserResponse response = userMapper.convertToUserResponse(user.get());
         DepartmentResponse departmentResponse = departmentClient.getDepartmentById(user.get().getDepartmentId());
+        System.out.println("User serive: dp res: " + departmentResponse.getName());
         response.setDepartment(departmentResponse);
         return response;
     }
-
+    @Caching(
+           evict = {@CacheEvict(cacheNames = "userList", allEntries = true)}
+    )
     public UserResponse register(UserRequest request){
         if (request.name() == null
                 || request.gender() == null

@@ -27,6 +27,7 @@ public class DepartmentService {
     public DepartmentResponse getById(int id){
         Optional<Department> department = departmentRepository.findById(id);
         if (department.isEmpty()) throw new NotFoundException("Department with id: " + id +" not be found");
+        System.out.println("DEpartment serive: name:" + department.get().getName());
         return departmentMapper.convertToDepartmentResponse(department.get());
     }
 
