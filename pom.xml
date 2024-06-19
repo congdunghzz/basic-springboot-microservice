@@ -15,6 +15,7 @@
     <module>userService</module>
     <module>departmentService</module>
       <module>EurekaServer</module>
+      <module>api-gateaway</module>
   </modules>
 
   <properties>

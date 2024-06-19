@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="EurekaServer" />
+        <module name="api-gateaway" />
         <module name="departmentService" />
         <module name="userService" />
       </profile>
